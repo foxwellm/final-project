@@ -1,6 +1,6 @@
 .DS_Store
 node_modules/
-API_KEYS
+API_KEYS.js
 /dist/
 npm-debug.log*
 yarn-debug.log*
