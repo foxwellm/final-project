@@ -2,7 +2,13 @@
   <div id="app">
     <div class="wall-background"></div>
     <div class="art-container">
-    <img class="art-image" v-for="image in results" :src="image.baseimageurl" v-bind:key="image.baseimageurl">
+      <img
+        class="art-image"
+        v-for="image in results"
+        :src="image.baseimageurl"
+        v-bind:key="image.baseimageurl"
+      >
+      <div v-on:click="cycle" class="cycle-btn">Last Page</div>
     </div>
   </div>
 </template>
@@ -17,10 +23,27 @@ export default {
       results: []
     };
   },
+  methods: {
+    async cycle() {
+      try {
+        const response = await fetch(
+          `https://api.harvardartmuseums.org/image?sort=random&q=height:800&width:1024&size=3&apikey=${
+            API_KEYS.Harvard
+          }`
+        );
+        const result = await response.json();
+        this.results = result.records;
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+  },
   async mounted() {
     try {
       const response = await fetch(
-        `https://api.harvardartmuseums.org/image?sort=random&q=height:800&width:1024&size=3&apikey=${API_KEYS.Harvard}`
+        `https://api.harvardartmuseums.org/image?sort=random&q=height:800&width:1024&size=3&apikey=${
+          API_KEYS.Harvard
+        }`
       );
       const result = await response.json();
       this.results = result.records;
@@ -41,7 +64,7 @@ export default {
 }
 
 .wall-background {
-  content:url('./assets/wall2.jpg');
+  content: url("./assets/wall2.jpg");
   position: absolute;
   top: 0;
   width: 100%;
@@ -50,8 +73,8 @@ export default {
 }
 
 .art-container {
-  width: 83%;
-  margin: auto;
+  width: 82%;
+  margin: 0 8.5% 0 9.5%;
   display: flex;
   justify-content: space-around;
 }
@@ -60,5 +83,26 @@ export default {
   width: 25%;
   height: 20%;
   margin: 11.5% 5%;
+}
+
+.cycle-btn {
+  position: absolute;
+  left: 20%;
+  bottom: 18%;
+  z-index: 1;
+  width: 6%;
+  height: 8%;
+  content: url("./assets/refresh.png");
+  transition: 0.2s;
+}
+
+.cycle-btn:hover {
+  transform: scale(1.05);
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.cycle-btn:active {
+  transform: rotate(10deg);
 }
 </style>
