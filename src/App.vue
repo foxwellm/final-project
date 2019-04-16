@@ -24,7 +24,6 @@ export default {
       );
       const result = await response.json();
       this.results = result.records;
-      console.log(this.results[0]);
     } catch (error) {
       console.log(error.message);
     }
