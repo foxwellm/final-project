@@ -8,6 +8,15 @@ get an API key from [Harvard Art Museum API key request](https://docs.google.com
 
 clone down repo   `git clone https://github.com/foxwellm/final-project.git`
 
+make a file `API_KEYS.js` in the root directory
+
+Add in code below to export your individual key to project:
+```bash
+module.exports = {
+  "Harvard": "YOUR_KEY_HERE"
+}
+```
+
 install dependencies   `npm install`
 
 start server and go to localhost:8080   `npm start`
